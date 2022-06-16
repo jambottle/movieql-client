@@ -18,7 +18,7 @@
     <title>고양이 가라사대</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="root"></div>
 
     <script type="text/babel">
       const catItem = (
@@ -30,8 +30,49 @@
         </li>
       );
 
-      const app = document.querySelector('#app');
-      ReactDOM.render(catItem, app);
+      const catList = (
+        <ul class="list">
+          {catItem}
+          {catItem}
+          {catItem}
+        </ul>
+      );
+
+      const cardSection = (
+        <section class="card">
+          <img
+            src="https://cataas.com/cat/60b73094e04e18001194a309/says/react"
+            alt="고양이"
+            width="400"
+          />
+          <button>🤍</button>
+        </section>
+      );
+
+      const formSection = (
+        <section>
+          <h1>1번째 고양이 가라사대</h1>
+          <form>
+            <input
+              type="text"
+              name="name"
+              placeholder="영어 대사를 입력해주세요"
+            />
+            <button type="submit">생성</button>
+          </form>
+        </section>
+      );
+
+      const app = (
+        <main>
+          {formSection}
+          {cardSection}
+          {catList}
+        </main>
+      );
+
+      const root = document.querySelector('#root');
+      ReactDOM.render(app, root);
     </script>
   </body>
 </html>
