@@ -21,37 +21,32 @@
     <div id="root"></div>
 
     <script type="text/babel">
-      const catItem = (
-        <li>
-          <img
-            src="https://cataas.com/cat/60b73094e04e18001194a309/says/react"
-            alt="고양이"
-          />
-        </li>
-      );
+      function CatItem(props) {
+        return (
+          <li>
+            <img src={props.imageUrl} alt="고양이" />
+          </li>
+        );
+      }
 
-      const catList = (
-        <ul class="list">
-          {catItem}
-          {catItem}
-          {catItem}
-        </ul>
-      );
+      function CatList() {
+        return (
+          <ul class="list">
+            <CatItem imageUrl="https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn" />
+            <CatItem imageUrl="https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript" />
+          </ul>
+        );
+      }
 
-      const cardSection = (
+      const CardSection = props => (
         <section class="card">
-          <img
-            src="https://cataas.com/cat/60b73094e04e18001194a309/says/react"
-            alt="고양이"
-            width="400"
-          />
+          <img src={props.imageUrl} alt="고양이" width="400" />
           <button>🤍</button>
         </section>
       );
 
-      const formSection = (
+      const FormSection = () => (
         <section>
-          <h1>1번째 고양이 가라사대</h1>
           <form>
             <input
               type="text"
@@ -63,11 +58,16 @@
         </section>
       );
 
+      const Title = ({ children }) => {
+        return <h1>{children}</h1>;
+      };
+
       const app = (
         <main>
-          {formSection}
-          {cardSection}
-          {catList}
+          <Title>1번째 고양이 가라사대</Title>
+          <FormSection />
+          <CardSection imageUrl="https://cataas.com/cat/60b73094e04e18001194a309/says/react" />
+          <CatList />
         </main>
       );
 
