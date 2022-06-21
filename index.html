@@ -60,7 +60,7 @@
         );
       };
 
-      const FormSection = () => (
+      const FormSection = ({ handleFormSubmit }) => (
         <section>
           <form onSubmit={handleFormSubmit}>
             <input
@@ -89,7 +89,7 @@
         return (
           <main>
             <Title>{count}번째 고양이 가라사대</Title>
-            <FormSection />
+            <FormSection handleFormSubmit={handleFormSubmit} />
             <CardSection imageUrl="https://cataas.com/cat/60b73094e04e18001194a309/says/react" />
             <CatList />
           </main>
