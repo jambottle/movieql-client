@@ -77,11 +77,17 @@
 
       const App = () => {
         const [count, setCount] = React.useState(1);
+        const [image, setImage] = React.useState(
+          'https://cataas.com/cat/60b73094e04e18001194a309/says/react'
+        );
 
         function handleFormSubmit(event) {
           event.preventDefault();
           console.log('폼 전송됨');
           setCount(count + 1);
+          setImage(
+            'https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn'
+          );
         }
 
         console.log('카운터:', count);
@@ -90,7 +96,7 @@
           <main>
             <Title>{count}번째 고양이 가라사대</Title>
             <FormSection handleFormSubmit={handleFormSubmit} />
-            <CardSection imageUrl="https://cataas.com/cat/60b73094e04e18001194a309/says/react" />
+            <CardSection imageUrl={image} />
             <CatList />
           </main>
         );
