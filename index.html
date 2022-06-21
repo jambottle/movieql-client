@@ -24,7 +24,7 @@
       function CatItem(props) {
         return (
           <li>
-            <img src={props.imageUrl} alt="고양이" />
+            <img src={props.imageUrl} alt="고양이" style={{ width: '150px' }} />
           </li>
         );
       }
@@ -121,9 +121,6 @@
         justify-content: center;
         list-style: none;
         gap: 15px;
-      }
-      .list img {
-        width: 150px;
       }
     </style>
   </body>
