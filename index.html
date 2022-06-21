@@ -61,10 +61,15 @@
       };
 
       const FormSection = () => {
+        const [count, setCount] = React.useState(1);
+
         function handleFormSubmit(event) {
           event.preventDefault();
           console.log('폼 전송됨');
+          setCount(count + 1);
         }
+
+        console.log('카운터:', count);
 
         return (
           <section>
