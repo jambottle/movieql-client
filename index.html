@@ -60,7 +60,22 @@
         );
       };
 
-      const FormSection = () => {
+      const FormSection = () => (
+        <section>
+          <form onSubmit={handleFormSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="영어 대사를 입력해주세요"
+            />
+            <button type="submit">생성</button>
+          </form>
+        </section>
+      );
+
+      const Title = ({ children }) => <h1>{children}</h1>;
+
+      const App = () => {
         const [count, setCount] = React.useState(1);
 
         function handleFormSubmit(event) {
@@ -72,32 +87,17 @@
         console.log('카운터:', count);
 
         return (
-          <section>
-            <form onSubmit={handleFormSubmit}>
-              <input
-                type="text"
-                name="name"
-                placeholder="영어 대사를 입력해주세요"
-              />
-              <button type="submit">생성</button>
-            </form>
-          </section>
+          <main>
+            <Title>{count}번째 고양이 가라사대</Title>
+            <FormSection />
+            <CardSection imageUrl="https://cataas.com/cat/60b73094e04e18001194a309/says/react" />
+            <CatList />
+          </main>
         );
       };
 
-      const Title = ({ children }) => <h1>{children}</h1>;
-
-      const app = (
-        <main>
-          <Title>1번째 고양이 가라사대</Title>
-          <FormSection />
-          <CardSection imageUrl="https://cataas.com/cat/60b73094e04e18001194a309/says/react" />
-          <CatList />
-        </main>
-      );
-
       const root = document.querySelector('#root');
-      ReactDOM.render(app, root);
+      ReactDOM.render(<App />, root);
     </script>
 
     <style>
