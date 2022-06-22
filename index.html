@@ -48,27 +48,12 @@
         );
       }
 
-      const CardSection = props => {
-        function handleHeartClick() {
-          console.log('하트 눌렀음');
-        }
-
-        function handleHeartMouseOver() {
-          console.log('하트 지나감');
-        }
-
-        return (
-          <section className="card">
-            <img src={props.imageUrl} alt="고양이" width="400" />
-            <button
-              onClick={handleHeartClick}
-              onMouseOver={handleHeartMouseOver}
-            >
-              🤍
-            </button>
-          </section>
-        );
-      };
+      const CardSection = ({ imageUrl, handleHeartClick }) => (
+        <section className="card">
+          <img src={imageUrl} alt="고양이" width="400" />
+          <button onClick={handleHeartClick}>🤍</button>
+        </section>
+      );
 
       const FormSection = ({ handleFormSubmit }) => (
         <section>
@@ -102,11 +87,15 @@
 
         console.log('카운터:', count);
 
+        function handleHeartClick() {
+          console.log('하트 눌렀음');
+        }
+
         return (
           <main>
             <Title>{count}번째 고양이 가라사대</Title>
             <FormSection handleFormSubmit={handleFormSubmit} />
-            <CardSection imageUrl={image} />
+            <CardSection imageUrl={image} handleHeartClick={handleHeartClick} />
             <CatList />
           </main>
         );
