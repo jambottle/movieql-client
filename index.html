@@ -29,19 +29,10 @@
         );
       }
 
-      function CatList() {
-        const CAT1 =
-          'https://cataas.com/cat/60b73094e04e18001194a309/says/react';
-        const CAT2 =
-          'https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn';
-        const CAT3 =
-          'https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript';
-
-        const cats = [CAT1, CAT2];
-
+      function CatList(props) {
         return (
           <ul className="list">
-            {cats.map((cat, index) => (
+            {props.catList.map((cat, index) => (
               <CatItem key={index} imageUrl={cat} />
             ))}
           </ul>
@@ -71,24 +62,29 @@
       const Title = ({ children }) => <h1>{children}</h1>;
 
       const App = () => {
+        const CAT1 =
+          'https://cataas.com/cat/60b73094e04e18001194a309/says/react';
+        const CAT2 =
+          'https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn';
+        const CAT3 =
+          'https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript';
+
         const [count, setCount] = React.useState(1);
-        const [image, setImage] = React.useState(
-          'https://cataas.com/cat/60b73094e04e18001194a309/says/react'
-        );
+        const [image, setImage] = React.useState(CAT1);
+        const [catList, setCatList] = React.useState([CAT1, CAT2]);
 
         function handleFormSubmit(event) {
           event.preventDefault();
           console.log('폼 전송됨');
           setCount(count + 1);
-          setImage(
-            'https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn'
-          );
+          setImage(CAT2);
         }
 
         console.log('카운터:', count);
 
         function handleHeartClick() {
           console.log('하트 눌렀음');
+          setCatList([...catList, CAT3]);
         }
 
         return (
@@ -96,7 +92,7 @@
             <Title>{count}번째 고양이 가라사대</Title>
             <FormSection handleFormSubmit={handleFormSubmit} />
             <CardSection imageUrl={image} handleHeartClick={handleHeartClick} />
-            <CatList />
+            <CatList catList={catList} />
           </main>
         );
       };
