@@ -46,18 +46,29 @@
         </section>
       );
 
-      const FormSection = ({ handleFormSubmit }) => (
-        <section>
-          <form onSubmit={handleFormSubmit}>
-            <input
-              type="text"
-              name="name"
-              placeholder="영어 대사를 입력해주세요"
-            />
-            <button type="submit">생성</button>
-          </form>
-        </section>
-      );
+      const FormSection = ({ handleFormSubmit }) => {
+        const [inputValue, setInputValue] = React.useState('');
+
+        function handleInputChange(event) {
+          const { value } = event.target;
+          setInputValue(value.toUpperCase());
+        }
+
+        return (
+          <section>
+            <form onSubmit={handleFormSubmit}>
+              <input
+                type="text"
+                name="name"
+                placeholder="영어 대사를 입력해주세요"
+                value={inputValue}
+                onChange={handleInputChange}
+              />
+              <button type="submit">생성</button>
+            </form>
+          </section>
+        );
+      };
 
       const Title = ({ children }) => <h1>{children}</h1>;
 
