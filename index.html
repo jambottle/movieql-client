@@ -39,14 +39,14 @@
         );
       }
 
-      const CardSection = ({ imageUrl, handleHeartClick }) => (
+      const CardSection = ({ imageUrl, onHeartClick }) => (
         <section className="card">
           <img src={imageUrl} alt="고양이" width="400" />
-          <button onClick={handleHeartClick}>🤍</button>
+          <button onClick={onHeartClick}>🤍</button>
         </section>
       );
 
-      const FormSection = () => {
+      const FormSection = ({ updateCardImage }) => {
         const [inputValue, setInputValue] = React.useState('');
         const [errorMessage, setErrorMessage] = React.useState('');
 
@@ -69,7 +69,9 @@
 
           if (inputValue === '') {
             setErrorMessage('빈 값으로 만들 수 없습니다!');
+            return;
           }
+          updateCardImage();
         }
         return (
           <section>
@@ -99,28 +101,23 @@
           'https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript';
 
         const [count, setCount] = React.useState(1);
-        const [image, setImage] = React.useState(CAT1);
+        const [cardImage, setCardImage] = React.useState(CAT1);
         const [catList, setCatList] = React.useState([CAT1, CAT2]);
 
-        function handleFormSubmit(event) {
-          event.preventDefault();
-          console.log('폼 전송됨');
+        function updateCardImage() {
+          setCardImage(CAT2);
           setCount(count + 1);
-          setImage(CAT2);
         }
 
-        console.log('카운터:', count);
-
         function handleHeartClick() {
-          console.log('하트 눌렀음');
           setCatList([...catList, CAT3]);
         }
 
         return (
           <main>
             <Title>{count}번째 고양이 가라사대</Title>
-            <FormSection handleFormSubmit={handleFormSubmit} />
-            <CardSection imageUrl={image} handleHeartClick={handleHeartClick} />
+            <FormSection updateCardImage={updateCardImage} />
+            <CardSection imageUrl={cardImage} onHeartClick={handleHeartClick} />
             <CatList catList={catList} />
           </main>
         );
