@@ -46,14 +46,31 @@
         </section>
       );
 
-      const FormSection = ({ handleFormSubmit }) => {
+      const FormSection = () => {
         const [inputValue, setInputValue] = React.useState('');
+        const [errorMessage, setErrorMessage] = React.useState('');
+
+        const includesHangul = value => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/i.test(value);
 
         function handleInputChange(event) {
           const { value } = event.target;
           setInputValue(value.toUpperCase());
+
+          if (includesHangul(value)) {
+            setErrorMessage('한글은 입력할 수 없습니다!');
+          } else {
+            setErrorMessage('');
+          }
         }
 
+        function handleFormSubmit(event) {
+          event.preventDefault();
+          setErrorMessage('');
+
+          if (inputValue === '') {
+            setErrorMessage('빈 값으로 만들 수 없습니다!');
+          }
+        }
         return (
           <section>
             <form onSubmit={handleFormSubmit}>
@@ -65,6 +82,7 @@
                 onChange={handleInputChange}
               />
               <button type="submit">생성</button>
+              <p style={{ color: 'red' }}>{errorMessage}</p>
             </form>
           </section>
         );
