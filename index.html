@@ -30,6 +30,17 @@
         },
       };
 
+      const fetchCat = async text => {
+        const OPEN_API_DOMAIN = 'https://cataas.com';
+
+        const response = await fetch(
+          `${OPEN_API_DOMAIN}/cat/says/${text}?json=true`
+        );
+        const responseJson = await response.json();
+
+        return `${OPEN_API_DOMAIN}/${responseJson.url}`;
+      };
+
       function CatItem(props) {
         return (
           <li>
@@ -59,7 +70,7 @@
         const [inputValue, setInputValue] = React.useState('');
         const [errorMessage, setErrorMessage] = React.useState('');
 
-        const includesHangul = value => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/i.test(value);
+        const includesHangul = text => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/i.test(text);
 
         function handleInputChange(event) {
           const { value } = event.target;
@@ -80,8 +91,9 @@
             setErrorMessage('빈 값으로 만들 수 없습니다!');
             return;
           }
-          updateCardImage();
+          updateCardImage(inputValue);
         }
+
         return (
           <section>
             <form onSubmit={handleFormSubmit}>
@@ -105,7 +117,7 @@
         const CAT1 =
           'https://cataas.com/cat/60b73094e04e18001194a309/says/react';
         const CAT2 =
-          'https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn';
+          'https://cataas.com/cat/5e9970351b7a400011744233/says/inflearn';
         const CAT3 =
           'https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript';
 
@@ -117,8 +129,10 @@
           jsonLocalStorage.getItem('catList') || []
         );
 
-        function updateCardImage() {
-          setCardImage(CAT2);
+        async function updateCardImage(value) {
+          const newCardImage = await fetchCat(value);
+
+          setCardImage(newCardImage);
           setCount(count + 1);
           jsonLocalStorage.setItem('count', count + 1);
         }
