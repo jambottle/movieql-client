@@ -129,10 +129,19 @@
           jsonLocalStorage.getItem('catList') || []
         );
 
+        async function createCardImage() {
+          const newCardImage = await fetchCat('First Cat');
+          setCardImage(newCardImage);
+        }
+
+        React.useEffect(() => {
+          createCardImage();
+        }, []);
+
         async function updateCardImage(value) {
           const newCardImage = await fetchCat(value);
-
           setCardImage(newCardImage);
+
           setCount(count + 1);
           jsonLocalStorage.setItem('count', count + 1);
         }
