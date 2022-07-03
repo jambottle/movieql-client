@@ -50,6 +50,10 @@
       }
 
       function CatList(props) {
+        if (props.catList.length === 0) {
+          return <p>사진 위 하트를 눌러 고양이 사진을 저장해봐요!</p>;
+        }
+
         return (
           <ul className="list">
             {props.catList.map((cat, index) => (
@@ -59,12 +63,16 @@
         );
       }
 
-      const CardSection = ({ imageUrl, onHeartClick }) => (
-        <section className="card">
-          <img src={imageUrl} alt="고양이" width="400" />
-          <button onClick={onHeartClick}>🤍</button>
-        </section>
-      );
+      const CardSection = ({ imageUrl, onHeartClick, isHeartClicked }) => {
+        const heartIcon = isHeartClicked ? '❤️' : '🤍';
+
+        return (
+          <section className="card">
+            <img src={imageUrl} alt="고양이" width="400" />
+            <button onClick={onHeartClick}>{heartIcon}</button>
+          </section>
+        );
+      };
 
       const FormSection = ({ updateCardImage }) => {
         const [inputValue, setInputValue] = React.useState('');
@@ -152,11 +160,17 @@
           jsonLocalStorage.setItem('catList', nextCatList);
         }
 
+        const isHeartClicked = catList.includes(cardImage);
+
         return (
           <main>
             <Title>{count}번째 고양이 가라사대</Title>
             <FormSection updateCardImage={updateCardImage} />
-            <CardSection imageUrl={cardImage} onHeartClick={handleHeartClick} />
+            <CardSection
+              imageUrl={cardImage}
+              onHeartClick={handleHeartClick}
+              isHeartClicked={isHeartClicked}
+            />
             <CatList catList={catList} />
           </main>
         );
