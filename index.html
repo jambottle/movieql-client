@@ -129,13 +129,13 @@
         const CAT3 =
           'https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript';
 
-        const [count, setCount] = React.useState(
-          jsonLocalStorage.getItem('count') || 0
-        );
+        const [count, setCount] = React.useState(() => {
+          return jsonLocalStorage.getItem('count') || 0;
+        });
         const [cardImage, setCardImage] = React.useState(CAT1);
-        const [catList, setCatList] = React.useState(
-          jsonLocalStorage.getItem('catList') || []
-        );
+        const [catList, setCatList] = React.useState(() => {
+          return jsonLocalStorage.getItem('catList') || [];
+        });
 
         async function createCardImage() {
           const newCardImage = await fetchCat('First Cat');
@@ -150,8 +150,11 @@
           const newCardImage = await fetchCat(value);
           setCardImage(newCardImage);
 
-          setCount(count + 1);
-          jsonLocalStorage.setItem('count', count + 1);
+          setCount(prevCount => {
+            jsonLocalStorage.setItem('count', prevCount + 1);
+
+            return prevCount + 1;
+          });
         }
 
         function handleHeartClick() {
