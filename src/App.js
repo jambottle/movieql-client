@@ -1,7 +1,7 @@
-import ToDoList from './pages/ToDoList/ToDoList';
+import CoinTracker from './pages/CoinTracker/CoinTracker';
 
 function App() {
-  return <ToDoList />;
+  return <CoinTracker />;
 }
 
 export default App;
