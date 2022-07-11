@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function MovieItem({ movie }) {
   const { title, title_long, genres, summary, medium_cover_image } = movie;
 
@@ -14,5 +16,15 @@ function MovieItem({ movie }) {
     </article>
   );
 }
+
+MovieItem.propTypes = {
+  movie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    title_long: PropTypes.string.isRequired,
+    genres: PropTypes.arrayOf(PropTypes.string).isRequired,
+    summary: PropTypes.string.isRequired,
+    medium_cover_image: PropTypes.string.isRequired,
+  }),
+};
 
 export default MovieItem;
