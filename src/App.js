@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+import MovieItem from './components/MovieSmiley/MovieItem';
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [movieList, setMovieList] = useState([]);
@@ -24,22 +26,7 @@ function App() {
       {isLoading ? (
         <strong>Loading...</strong>
       ) : (
-        movieList.map(movie => {
-          const { id, title, genres, summary, medium_cover_image } = movie;
-
-          return (
-            <article key={id}>
-              <img src={medium_cover_image} />
-              <h2>{title}</h2>
-              <p>{summary}</p>
-              <ul>
-                {genres.map((genre, index) => (
-                  <li key={index}>{genre}</li>
-                ))}
-              </ul>
-            </article>
-          );
-        })
+        movieList.map(movie => <MovieItem key={movie.id} movie={movie} />)
       )}
     </>
   );
