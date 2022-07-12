@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 function MovieItem({ movie }) {
@@ -6,7 +7,9 @@ function MovieItem({ movie }) {
   return (
     <article>
       <img alt={title} src={medium_cover_image} />
-      <h2>{title_long}</h2>
+      <h2>
+        <Link to="/movie">{title_long}</Link>
+      </h2>
       <p>{summary}</p>
       <ul>
         {genres.map((genre, index) => (
