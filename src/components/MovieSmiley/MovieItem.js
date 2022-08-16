@@ -10,7 +10,7 @@ function MovieItem({ movie }) {
       <h2>
         <Link to={`/movie/${id}`}>{title_long}</Link>
       </h2>
-      <p>{summary}</p>
+      <p>{summary.length > 240 ? `${summary.slice(0, 240)}...` : summary}</p>
       <ul>
         {genres.map((genre, index) => (
           <li key={index}>{genre}</li>
