@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import MovieItem from '../../components/MovieSmiley/MovieItem';
+import styles from './MovieList.module.css';
 
 function MovieList() {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,14 +22,19 @@ function MovieList() {
   }, []);
 
   return (
-    <>
-      <h1>Movie Smiley 😎</h1>
+    <main className={styles.container}>
       {isLoading ? (
-        <strong>Loading...</strong>
+        <aside className={styles.loader}>
+          <span>Loading...</span>
+        </aside>
       ) : (
-        movieList.map(movie => <MovieItem key={movie.id} movie={movie} />)
+        <section className={styles.movies}>
+          {movieList.map(movie => (
+            <MovieItem key={movie.id} movie={movie} />
+          ))}
+        </section>
       )}
-    </>
+    </main>
   );
 }
 
