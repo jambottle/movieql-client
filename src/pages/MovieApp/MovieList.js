@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import MovieItem from '../../components/MovieSmiley/MovieItem';
+import MovieItem from '../../components/MovieApp/MovieItem';
 import styles from './MovieList.module.css';
 
 function MovieList() {

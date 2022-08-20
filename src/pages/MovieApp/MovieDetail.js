@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import MovieItem from '../../components/MovieSmiley/MovieItem';
+import MovieItem from '../../components/MovieApp/MovieItem';
 
 function MovieDetail() {
   const { id } = useParams();
