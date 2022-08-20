@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import styles from './MovieItem.module.css';
+import styles from './MovieListItem.module.css';
 
-function MovieItem({ movie }) {
+function MovieListItem({ movie }) {
   const { id, title, year, genres, summary, medium_cover_image } = movie;
 
   return (
@@ -29,7 +29,7 @@ function MovieItem({ movie }) {
   );
 }
 
-MovieItem.propTypes = {
+MovieListItem.propTypes = {
   movie: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -40,4 +40,4 @@ MovieItem.propTypes = {
   }),
 };
 
-export default MovieItem;
+export default MovieListItem;

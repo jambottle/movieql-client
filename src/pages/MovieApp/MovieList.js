@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import MovieItem from '../../components/MovieApp/MovieItem';
+import MovieListItem from '../../components/MovieApp/MovieListItem';
 import styles from './MovieList.module.css';
 
 function MovieList() {
@@ -30,7 +30,7 @@ function MovieList() {
       ) : (
         <section className={styles.movies}>
           {movieList.map(movie => (
-            <MovieItem key={movie.id} movie={movie} />
+            <MovieListItem key={movie.id} movie={movie} />
           ))}
         </section>
       )}

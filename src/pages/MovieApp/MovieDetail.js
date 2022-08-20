@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import MovieItem from '../../components/MovieApp/MovieItem';
+import MovieListItem from '../../components/MovieApp/MovieListItem';
 
 function MovieDetail() {
   const { id } = useParams();
@@ -29,7 +29,7 @@ function MovieDetail() {
       {isLoading ? (
         <strong>Loading...</strong>
       ) : (
-        <MovieItem movie={movieDetail} />
+        <MovieListItem movie={movieDetail} />
       )}
     </>
   );
