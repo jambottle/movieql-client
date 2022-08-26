@@ -8,7 +8,7 @@ function App() {
     <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route exact path="/" element={<MovieList />} />
-        <Route exact path="/movie/:id" element={<MovieDetail />} />
+        <Route exact path="/movies/:id" element={<MovieDetail />} />
       </Routes>
     </Router>
   );

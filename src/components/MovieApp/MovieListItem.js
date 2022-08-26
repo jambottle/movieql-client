@@ -15,7 +15,7 @@ function MovieListItem({ movie }) {
       />
       <div>
         <h2 className={styles.movie__title}>
-          <Link to={`/movie/${id}`}>{title}</Link>
+          <Link to={`/movies/${id}`}>{title}</Link>
         </h2>
         <h3 className={styles.movie__year}>{year}</h3>
         <p>{summary.length > 240 ? `${summary.slice(0, 240)}...` : summary}</p>
