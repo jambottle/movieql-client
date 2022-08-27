@@ -1,37 +1,42 @@
-import { useState, useEffect } from 'react';
+import { gql, useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
-import MovieListItem from '../../components/MovieApp/MovieListItem';
+const GET_MOVIE = gql`
+  query getMovie($movieId: String!) {
+    movie(movieId: $movieId) {
+      id
+      title
+    }
+  }
+`;
 
 function MovieDetail() {
   const { id } = useParams();
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [movieDetail, setMovieDetail] = useState({});
-
-  const getMovieDetail = async () => {
-    const response = await fetch(
-      `https://yts.mx/api/v2/movie_details.json?movie_id=${id}`
-    );
-    const { data } = await response.json();
-
-    setMovieDetail(data.movie);
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    getMovieDetail();
-  }, []);
+  const { loading, error, data } = useQuery(GET_MOVIE, {
+    variables: {
+      movieId: id,
+    },
+  });
 
   return (
-    <>
-      <h1>Detail Page</h1>
-      {isLoading ? (
-        <strong>Loading...</strong>
-      ) : (
-        <MovieListItem movie={movieDetail} />
+    <main>
+      {loading && (
+        <aside>
+          <span>Loading...</span>
+        </aside>
       )}
-    </>
+
+      {error && (
+        <aside>
+          <span>Failed to fetch.</span>
+        </aside>
+      )}
+
+      <section>
+        <h1>{data?.movie.title}</h1>
+      </section>
+    </main>
   );
 }
 

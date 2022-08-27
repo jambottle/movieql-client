@@ -1,39 +1,43 @@
-import { useState, useEffect } from 'react';
+import { gql, useQuery } from '@apollo/client';
 
 import MovieListItem from '../../components/MovieApp/MovieListItem';
 import styles from './MovieList.module.css';
 
+const GET_ALL_MOVIES = gql`
+  query getAllMovies {
+    allMovies {
+      id
+      title
+      year
+      genres
+      summary
+      medium_cover_image
+    }
+  }
+`;
+
 function MovieList() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [movieList, setMovieList] = useState([]);
-
-  const getMovieList = async () => {
-    const response = await fetch(
-      `https://yts.mx/api/v2/list_movies.json?minimum_rating=9.0&sort_by=year`
-    );
-    const { data } = await response.json();
-
-    setMovieList(data.movies);
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    getMovieList();
-  }, []);
+  const { loading, error, data } = useQuery(GET_ALL_MOVIES);
 
   return (
     <main className={styles.container}>
-      {isLoading ? (
+      {loading && (
         <aside className={styles.loader}>
           <span>Loading...</span>
         </aside>
-      ) : (
-        <section className={styles.movies}>
-          {movieList.map(movie => (
-            <MovieListItem key={movie.id} movie={movie} />
-          ))}
-        </section>
       )}
+
+      {error && (
+        <aside className={styles.loader}>
+          <span>Failed to fetch.</span>
+        </aside>
+      )}
+
+      <section className={styles.movies}>
+        {data?.allMovies.map(movie => (
+          <MovieListItem key={movie.id} movie={movie} />
+        ))}
+      </section>
     </main>
   );
 }
