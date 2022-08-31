@@ -1,43 +1,72 @@
 import { gql, useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
 const GET_MOVIE = gql`
   query getMovie($movieId: String!) {
     movie(movieId: $movieId) {
       id
       title
+      rating
+      medium_cover_image
     }
   }
 `;
 
-function MovieDetail() {
+export default function MovieDetail() {
   const { id } = useParams();
 
-  const { loading, error, data } = useQuery(GET_MOVIE, {
+  const { loading, data } = useQuery(GET_MOVIE, {
     variables: {
       movieId: id,
     },
   });
 
   return (
-    <main>
-      {loading && (
-        <aside>
-          <span>Loading...</span>
-        </aside>
-      )}
+    <Container>
+      <Header>
+        <Title>{loading ? 'Loading...' : `${data.movie?.title}`}</Title>
+        <Subtitle>⭐️ {data?.movie?.rating}</Subtitle>
+      </Header>
 
-      {error && (
-        <aside>
-          <span>Failed to fetch.</span>
-        </aside>
-      )}
-
-      <section>
-        <h1>{data?.movie.title}</h1>
-      </section>
-    </main>
+      <Poster background={data?.movie?.medium_cover_image} />
+    </Container>
   );
 }
 
-export default MovieDetail;
+const Container = styled.main`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(-45deg, #d754ab, #fd723a);
+  color: white;
+`;
+
+const Header = styled.header`
+  margin-left: 10px;
+  width: 50%;
+`;
+
+const Title = styled.h1`
+  margin-bottom: 15px;
+  font-size: 65px;
+`;
+
+const Subtitle = styled.h4`
+  margin-bottom: 10px;
+  font-size: 35px;
+`;
+
+const Poster = styled.figure`
+  width: 25%;
+  height: 60%;
+  border-radius: 7px;
+
+  background-color: transparent;
+  background-image: url(${props => props.background});
+  background-position: center center;
+  background-size: cover;
+`;
