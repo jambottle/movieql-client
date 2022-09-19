@@ -9,6 +9,7 @@ const GET_MOVIE = gql`
       title
       rating
       medium_cover_image
+      isLiked @client
     }
   }
 `;
@@ -16,17 +17,38 @@ const GET_MOVIE = gql`
 export default function MovieDetail() {
   const { id } = useParams();
 
-  const { loading, data } = useQuery(GET_MOVIE, {
+  const {
+    loading,
+    data,
+    client: { cache },
+  } = useQuery(GET_MOVIE, {
     variables: {
       movieId: id,
     },
   });
+
+  const handleClick = () => {
+    cache.writeFragment({
+      id: `Movie:${id}`,
+      fragment: gql`
+        fragment MovieFragment on Movie {
+          isLiked
+        }
+      `,
+      data: {
+        isLiked: !data.movie.isLiked,
+      },
+    });
+  };
 
   return (
     <Container>
       <Header>
         <Title>{loading ? 'Loading...' : `${data.movie?.title}`}</Title>
         <Subtitle>⭐️ {data?.movie?.rating}</Subtitle>
+        <button onClick={handleClick}>
+          {data?.movie?.isLiked ? 'Unlike' : 'Like'}
+        </button>
       </Header>
 
       <Poster background={data?.movie?.medium_cover_image} />
